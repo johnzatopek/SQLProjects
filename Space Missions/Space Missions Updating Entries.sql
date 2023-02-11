@@ -60,9 +60,18 @@ There is no need to check other columns for IS NOT NULL because if any of our lo
 
 FROM space_missions_split),
 
---Fifth CTE Objective: Reorder and columns into easy-to-read locations
+--Fifth CTE Objective: Reorder and columns into easy-to-read locations and included a decade column to aggregate on in future queries.
 space_missions_complete AS(
-SELECT LaunchID, Company, Location, Site, Station, City, State, Country, Date, Time, Rocket, Mission, RocketStatus, Price, MissionStatus
+SELECT LaunchID, Company, Location, Site, Station, City, State, Country, Date, Time, Rocket, Mission, RocketStatus, Price, MissionStatus,
+CASE WHEN Date BETWEEN '1950-01-01' AND '1959-12-31' THEN '1950s'
+	 WHEN Date BETWEEN '1960-01-01' AND '1969-12-31' THEN '1960s'
+	 WHEN Date BETWEEN '1970-01-01' AND '1979-12-31' THEN '1970s'
+	 WHEN Date BETWEEN '1980-01-01' AND '1989-12-31' THEN '1980s'
+	 WHEN Date BETWEEN '1990-01-01' AND '1999-12-31' THEN '1990s'
+	 WHEN Date BETWEEN '2000-01-01' AND '2009-12-31' THEN '2000s'
+	 WHEN Date BETWEEN '2010-01-01' AND '2019-12-31' THEN '2010s'
+	 WHEN Date BETWEEN '2020-01-01' AND '2029-12-31' THEN '2020s'
+	 ELSE NULL END AS Decade
 FROM locations_labeled)
 
 --The following UPDATE codes are used to correct an error in an entry for Location.
