@@ -2,13 +2,13 @@ SELECT *
 FROM Rentals_Updated
 --Note: Avg Size is 967
 WHERE Size >= (SELECT AVG(Size)
-				FROM Rentals_Updated)
+	       FROM Rentals_Updated)
 --Note: Avg US Dollar Cost is 419.92
 AND US_Dollar_Cost <= (SELECT AVG(US_Dollar_Cost)
-						FROM Rentals_Updated)
+		       FROM Rentals_Updated)
 --Note: Avg BHK is 2
 AND BHK >= (SELECT AVG(BHK) 
-			FROM Rentals_Updated)
+	    FROM Rentals_Updated)
 AND Bathroom >= 3
 AND Tenant_Preferred LIKE '%Family%'
 AND Point_of_Contact LIKE '%Agent%'
